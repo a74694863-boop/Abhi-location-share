@@ -10,7 +10,7 @@
         .icon { font-size: 48px; margin-bottom: 15px; }
         h2 { color: #1e293b; margin: 0 0 10px 0; font-size: 24px; }
         p { color: #64748b; font-size: 14px; line-height: 1.6; margin: 0 0 25px 0; }
-        .btn { background-color: #10b981; color: white; border: none; padding: 14px 28px; font-size: 16px; border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%; transition: all 0.2s ease; shadow: 0 4px 6px rgba(16, 185, 129, 0.2); }
+        .btn { background-color: #10b981; color: white; border: none; padding: 14px 28px; font-size: 16px; border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%; transition: all 0.2s ease; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2); }
         .btn:hover { background-color: #059669; transform: translateY(-1px); }
         .btn:active { transform: translateY(1px); }
         #status { margin-top: 20px; font-weight: 600; font-size: 15px; color: #f59e0b; min-height: 22px; }
@@ -31,25 +31,24 @@
     </div>
 
     <script>
-        // ⚠️ 1. REPLACE THESE VARIABLES WITH YOUR CORRECT TELEGRAM DETAILS
-        const BOT_TOKEN = '8967585991:AAH1eHdBlMFxeiseF3Nr7ZDQCQwyvye31Ts'; // e.g., '123456789:ABCdef...'
-        const CHAT_ID = '8967585991';                // Your Verified Chat ID
+        // ✅ Both your credentials are now perfectly updated
+        const BOT_TOKEN = '8967585991:AAH1eHdBlMFxeiseF3Nr7ZDQCQwyvye31Ts'; 
+        const CHAT_ID = '7683334933';                
 
         function shareMyLocation() {
             const statusText = document.getElementById("status");
             statusText.innerText = "Finding your location...";
-            statusText.style.color = "#f59e0b"; // Orange
+            statusText.style.color = "#f59e0b"; 
 
             if (navigator.geolocation) {
-                // Fetch location coordinates from device
                 navigator.geolocation.getCurrentPosition(sendToTelegram, showError, {
-                    enableHighAccuracy: true, // For precise GPS mapping
+                    enableHighAccuracy: true, 
                     timeout: 12000,
                     maximumAge: 0
                 });
             } else {
                 statusText.innerText = "Error: Geolocation is not supported by this browser.";
-                statusText.style.color = "#ef4444"; // Red
+                statusText.style.color = "#ef4444"; 
             }
         }
 
@@ -58,13 +57,10 @@
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             
-            // Construct official Google Maps Query URL
             const mapsLink = `https://google.com{lat},${lon}`;
-            
-            // Format the final markdown message for Telegram
             const message = `📍 *User shared their location!*\n\n🔗 *Google Maps:* [Open Map](${mapsLink})\n🕒 *Time:* ${new Date().toLocaleString()}`;
 
-            // Execute the secure network request to Telegram API
+            // Send secure request to your personal Chat ID via Telegram API
             fetch(`https://telegram.org{BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -77,9 +73,9 @@
             .then(response => {
                 if (response.ok) {
                     statusText.innerText = "✓ Location shared successfully!";
-                    statusText.style.color = "#10b981"; // Green
+                    statusText.style.color = "#10b981"; 
                 } else {
-                    statusText.innerText = "API Error. Please verify your Bot Token.";
+                    statusText.innerText = "API Error. Please check your credentials.";
                     statusText.style.color = "#ef4444";
                 }
             })
